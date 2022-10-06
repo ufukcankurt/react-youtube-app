@@ -85,7 +85,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Wrapper>
-        <Link to="/" style={{ textDecoration: "none" , color:"inherit"}}>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <Logo>
             <Img src={YouTube} />
             YouTube
@@ -157,7 +157,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
           Help
         </Item>
         <Item onClick={() => setDarkMode(!darkMode)}>
-          <SettingsBrightnessOutlinedIcon /> Dark Mode
+          <SettingsBrightnessOutlinedIcon /> {darkMode ? "Light" : "Dark"} Mode 
         </Item>
       </Wrapper>
     </Container>

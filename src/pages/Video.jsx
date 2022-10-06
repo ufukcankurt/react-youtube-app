@@ -60,6 +60,51 @@ const Recommendation = styled.div`
     flex: 2;
 `
 
+const Channel = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+const ChannelInfo = styled.div`
+    display: flex;
+    gap: 20px;
+`
+const Image = styled.img`
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+`
+const ChannelDetail = styled.div`
+    display: flex;
+    flex-direction: column;
+    color: ${({ theme }) => theme.text};
+`
+const ChannelName = styled.span`
+    font-weight: 500;
+`
+
+const ChannelCounter = styled.span`
+    color: ${({ theme }) => theme.textSoft};
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 12px;
+`
+
+const Description = styled.p`
+    font-size: 14px;
+`
+
+const Subscribe = styled.button`
+    background-color: #cc1a00;
+    font-weight: 500;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    height: max-content;
+    padding: 10px 20px;
+    cursor: pointer;
+`
+
 const Video = () => {
     return (
         <Container>
@@ -86,6 +131,19 @@ const Video = () => {
                     </Buttons>
                 </Details>
                 <Hr />
+                <Channel>
+                    <ChannelInfo>
+                        <Image src='https://yt3.ggpht.com/ytc/AMLnZu94pzTFiSDqYIvXn40JdctQCOxK2fnAMEy0zdL6kA=s68-c-k-c0x00ffffff-no-rj' />
+                        <ChannelDetail>
+                            <ChannelName>Code With Akash</ChannelName>
+                            <ChannelCounter>1.2M subscribers</ChannelCounter>
+                            <Description>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur error atque nulla adipisci quas ex doloremque officia accusamus iure fuga autem officiis veniam quam maiores, porro reprehenderit quo qui labore?
+                            </Description>
+                        </ChannelDetail>
+                    </ChannelInfo>
+                    <Subscribe> SUBSCRIBE</Subscribe>
+                </Channel>
             </Content>
             <Recommendation>Recommendation</Recommendation>
         </Container>

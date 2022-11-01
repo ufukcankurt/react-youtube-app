@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import axios from "axios"
+import { format } from 'timeago.js'
 
 const Container = styled.div`
     width:  ${(props) => props.type !== 'sm' && '360px'};
@@ -52,17 +54,26 @@ font-size: 14px;
 color: ${({ theme }) => theme.textSoft};
 `
 
-const Card = ({ type }) => {
+const Card = ({ type, video }) => {
+    const [channel, setChannel] = useState({})
+
+    useEffect(() => {
+        const fetchChannel = async () => {
+            const res = await axios.get(`/users/find/${video.userId}`);
+            setChannel(res.data);
+        }
+        fetchChannel();
+    }, [video.userId])
     return (
         <Link to="/video/test" style={{ textDecoration: "none" }}>
             <Container type={type}>
-                <Image type={type} src='https://i.ytimg.com/vi/jsZoR1kkq6s/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB7UWLw6X72QOJqd53EnIZE8jAyqQ' />
+                <Image type={type} src={video.img} />
                 <Details type={type}>
-                    <ChannelImage type={type} src='https://yt3.ggpht.com/ytc/AMLnZu94pzTFiSDqYIvXn40JdctQCOxK2fnAMEy0zdL6kA=s68-c-k-c0x00ffffff-no-rj' />
+                    <ChannelImage type={type} src={channel.img} />
                     <Texts>
-                        <Title>How to make a YouTube clone with ReactJS</Title>
-                        <ChannelName>Codevolution</ChannelName>
-                        <Info>1.2M views • 2 years ago</Info>
+                        <Title>{video.title}</Title>
+                        <ChannelName>{channel.name}</ChannelName>
+                        <Info>{video.views} views • {format(video.createdAt)}</Info>
                     </Texts>
                 </Details>
             </Container>

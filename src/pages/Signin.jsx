@@ -64,6 +64,7 @@ const Link = styled.span`
 `
 
 const Signin = () => {
+    const FETCH = process.env.REACT_APP_FETCH_PATH
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -72,7 +73,7 @@ const Signin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:8800/api/auth/signin", {
+            const res = await axios.post(`${FETCH}auth/signin`, {
                 name,
                 password,
             });

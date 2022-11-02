@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
@@ -7,6 +7,14 @@ import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import Comments from '../components/Comments';
 import Card from "../components/Card";
+
+import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+import { fetchSuccess } from '../redux/videoSlice';
+import { format } from 'timeago.js';
+
 
 const Container = styled.div`
     display: flex;
@@ -108,18 +116,49 @@ const Subscribe = styled.button`
 `
 
 const Video = () => {
+    const FETCH = process.env.REACT_APP_FETCH_PATH;
+    const { currentUser } = useSelector(state => state.user)
+    const { currentVideo } = useSelector(state => state.video)
+    const dispatch = useDispatch();
+
+    const path = useLocation().pathname.split("/")[2];
+
+    const [channel, setChannel] = useState({})
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const videoRes = await axios.get(`${FETCH}videos/find/${path}`)
+                console.log("videoRes", videoRes)
+                console.log("videoResuserId", videoRes.userId)
+                const channelRes = await axios.get(`${FETCH}users/find/${videoRes.data.userId}`)
+
+
+                console.log("channelRes", channelRes)
+
+                setChannel(channelRes.data);
+                dispatch(fetchSuccess(videoRes.data))
+            } catch (error) {
+
+            }
+        }
+        fetchData();
+
+    }, [path, dispatch, FETCH])
+
+    console.log("currentVideo", currentVideo)
     return (
         <Container>
             <Content>
                 <VideoWrapper>
                     <iframe width="100%" height="500px" src="https://www.youtube.com/embed/jsZoR1kkq6s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </VideoWrapper>
-                <Title>How to make a YouTube clone with ReactJS</Title>
+                <Title>{currentVideo.title}</Title>
                 <Details>
-                    <Info>1.2M views • 2 years ago</Info>
+                    <Info>{currentVideo.views} views • {format(currentVideo.createdAt)}</Info>
                     <Buttons>
                         <Button>
-                            <ThumbUpOutlinedIcon /> 123
+                            <ThumbUpOutlinedIcon /> {currentVideo.likes?.length}
                         </Button>
                         <Button>
                             <ThumbDownOutlinedIcon /> Dislike
@@ -135,12 +174,12 @@ const Video = () => {
                 <Hr />
                 <Channel>
                     <ChannelInfo>
-                        <Image src='https://yt3.ggpht.com/ytc/AMLnZu94pzTFiSDqYIvXn40JdctQCOxK2fnAMEy0zdL6kA=s68-c-k-c0x00ffffff-no-rj' />
+                        <Image src={channel?.img} />
                         <ChannelDetail>
-                            <ChannelName>Code With Akash</ChannelName>
-                            <ChannelCounter>1.2M subscribers</ChannelCounter>
+                            <ChannelName>{channel.name}</ChannelName>
+                            <ChannelCounter>{channel.subscribers} subscribers</ChannelCounter>
                             <Description>
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur error atque nulla adipisci quas ex doloremque officia accusamus iure fuga autem officiis veniam quam maiores, porro reprehenderit quo qui labore?
+                                {currentVideo.description}
                             </Description>
                         </ChannelDetail>
                     </ChannelInfo>
@@ -149,7 +188,7 @@ const Video = () => {
                 <Hr />
                 <Comments />
             </Content>
-            <Recommendation>
+            {/* <Recommendation>
                 <Card type="sm" />
                 <Card type="sm" />
                 <Card type="sm" />
@@ -161,7 +200,7 @@ const Video = () => {
                 <Card type="sm" />
                 <Card type="sm" />
                 <Card type="sm" />
-            </Recommendation>
+            </Recommendation> */}
         </Container>
     )
 }

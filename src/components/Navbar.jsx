@@ -63,7 +63,7 @@ const User = styled.div`
   color: ${({ theme }) => theme.text};
 `
 
-const Avatar = styled.div`
+const Avatar = styled.img`
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -83,7 +83,7 @@ const Navbar = () => {
         </Search>
         {currentUser ? <User>
           <VideoCallOutlinedIcon />
-          <Avatar />
+          <Avatar src={currentUser.img} />
           {currentUser.name}
         </User> : <Link to="/signin" style={{ textDecoration: "none" }}>
           <Button> <AccountCircleOutlinedIcon /> SIGN IN</Button>

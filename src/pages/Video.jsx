@@ -212,7 +212,7 @@ const Video = () => {
                     <Subscribe onClick={handleSub}> {currentUser.subscribedUsers?.includes(channel._id) ? "SUBSCRIBED" : "SUBSCRIBE"}</Subscribe>
                 </Channel>
                 <Hr />
-                <Comments />
+                <Comments videoId={currentVideo._id} />
             </Content>
             {/* <Recommendation>
                 <Card type="sm" />

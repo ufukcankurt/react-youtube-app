@@ -5,6 +5,9 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+
 import Comments from '../components/Comments';
 import Card from "../components/Card";
 
@@ -12,7 +15,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { fetchSuccess } from '../redux/videoSlice';
+import { dislike, fetchSuccess, like } from '../redux/videoSlice';
 import { format } from 'timeago.js';
 
 
@@ -146,7 +149,16 @@ const Video = () => {
 
     }, [path, dispatch, FETCH])
 
-    console.log("currentVideo", currentVideo)
+    const handleLike = async () => {
+        await axios.put(`${FETCH}users/like/${currentVideo._id}`)
+        dispatch(like(currentUser._id))
+    }
+
+    const handleDislike = async () => {
+        await axios.put(`${FETCH}users/dislike/${currentVideo._id}`)
+        dispatch(dislike(currentUser._id))
+    }
+
     return (
         <Container>
             <Content>
@@ -157,11 +169,11 @@ const Video = () => {
                 <Details>
                     <Info>{currentVideo.views} views • {format(currentVideo.createdAt)}</Info>
                     <Buttons>
-                        <Button>
-                            <ThumbUpOutlinedIcon /> {currentVideo.likes?.length}
+                        <Button onClick={handleLike}>
+                            {currentVideo.likes?.includes(currentUser._id) ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />} {currentVideo.likes?.length}
                         </Button>
-                        <Button>
-                            <ThumbDownOutlinedIcon /> Dislike
+                        <Button onClick={handleDislike}>
+                            {currentVideo.dislikes?.includes(currentUser._id) ? <ThumbDownIcon /> : < ThumbDownOutlinedIcon />} Dislike
                         </Button>
                         <Button>
                             <ReplyOutlinedIcon /> Share

@@ -10,12 +10,11 @@ const Container = styled.div`
 `
 
 const Home = ({ type }) => {
-    const FETCH = process.env.REACT_APP_FETCH_PATH;
     const [videos, setVideos] = useState([])
 
     useEffect(() => {
         const fetchVideos = async () => {
-            const res = await axios.get(`${FETCH}videos/${type}`);
+            const res = await axios.get(`videos/${type}`);
             setVideos(res.data);
         }
         fetchVideos();

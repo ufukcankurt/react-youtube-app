@@ -11,17 +11,16 @@ const Container = styled.div`
 `;
 
 const Search = () => {
-    const FETCH = process.env.REACT_APP_FETCH_PATH;
     const [videos, setVideos] = useState([]);
     const query = useLocation().search; 
 
     useEffect(() => {
         const fetchVideos = async () => {
-            const res = await axios.get(`${FETCH}videos/search${query}`);
+            const res = await axios.get(`videos/search${query}`);
             setVideos(res.data);
         };
         fetchVideos();
-    }, [query, FETCH]);
+    }, [query]);
 
     return <Container>
         {videos.map(video => (

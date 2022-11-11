@@ -8,12 +8,11 @@ const Container = styled.div`
 `;
 
 const Recommendation = ({ tags }) => {
-    const FETCH = process.env.REACT_APP_FETCH_PATH;
     const [videos, setVideos] = useState([]);
 
     useEffect(() => {
         const fetchVideos = async () => {
-            const res = await axios.get(`${FETCH}videos/tags?tags=${tags}`);
+            const res = await axios.get(`videos/tags?tags=${tags}`);
             setVideos(res.data);
         };
         fetchVideos();

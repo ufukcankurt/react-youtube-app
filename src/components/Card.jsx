@@ -55,12 +55,11 @@ color: ${({ theme }) => theme.textSoft};
 `
 
 const Card = ({ type, video }) => {
-    const FETCH = process.env.REACT_APP_FETCH_PATH;
     const [channel, setChannel] = useState({})
 
     useEffect(() => {
         const fetchChannel = async () => {
-            const res = await axios.get(`${FETCH}users/find/${video.userId}`);
+            const res = await axios.get(`users/find/${video.userId}`);
             setChannel(res.data);
         }
         fetchChannel();

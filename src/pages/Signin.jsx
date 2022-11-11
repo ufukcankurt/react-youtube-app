@@ -69,8 +69,7 @@ const Link = styled.span`
 `
 
 const Signin = () => {
-    const FETCH = process.env.REACT_APP_FETCH_PATH
-
+    
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -80,7 +79,7 @@ const Signin = () => {
         e.preventDefault();
         dispatch(loginStart())
         try {
-            const res = await axios.post(`${FETCH}auth/signin`, {
+            const res = await axios.post(`auth/signin`, {
                 name,
                 password,
             });
@@ -93,7 +92,7 @@ const Signin = () => {
     const signinWithGoogle = async () => {
         dispatch(loginStart())
         signInWithPopup(auth, provider).then((result) => {
-            axios.post(`${FETCH}auth/google`, {
+            axios.post(`auth/google`, {
                 name: result.user.displayName,
                 email: result.user.email,
                 img: result.user.photoURL,

@@ -30,7 +30,6 @@ const Input = styled.input`
 `
 
 const Comments = ({ videoId }) => {
-    const FETCH = process.env.REACT_APP_FETCH_PATH;
     const { currentUser } = useSelector(state => state.user)
 
     const [comments, setComments] = useState([])
@@ -38,7 +37,7 @@ const Comments = ({ videoId }) => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const res = await axios.get(`${FETCH}comments/${videoId}`)
+                const res = await axios.get(`comments/${videoId}`)
                 setComments(res.data)
             } catch (error) {
 

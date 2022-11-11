@@ -75,7 +75,6 @@ const Label = styled.label`
 
 
 const Upload = ({ setOpen }) => {
-    const FETCH = process.env.REACT_APP_FETCH_PATH
 
     const [img, setImg] = useState(undefined)
     const [video, setVideo] = useState(undefined)
@@ -135,7 +134,7 @@ const Upload = ({ setOpen }) => {
 
     const handleUpload = async (e) => {
         e.preventDefault();
-        const res = await axios.post(`${FETCH}videos`, { ...inputs, tags })
+        const res = await axios.post(`videos`, { ...inputs, tags })
         setOpen(false)
         res.status === 200 && navigate(`/video/${res.data._id}`)
     }

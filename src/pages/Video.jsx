@@ -122,7 +122,6 @@ const VideoFrame = styled.video`
 `
 
 const Video = () => {
-    const FETCH = process.env.REACT_APP_FETCH_PATH;
     const { currentUser } = useSelector(state => state.user)
     const { currentVideo } = useSelector(state => state.video)
     const dispatch = useDispatch();
@@ -134,10 +133,10 @@ const Video = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const videoRes = await axios.get(`${FETCH}videos/find/${path}`)
+                const videoRes = await axios.get(`videos/find/${path}`)
                 console.log("videoRes", videoRes)
                 console.log("videoResuserId", videoRes.userId)
-                const channelRes = await axios.get(`${FETCH}users/find/${videoRes.data.userId}`)
+                const channelRes = await axios.get(`users/find/${videoRes.data.userId}`)
 
 
                 console.log("channelRes", channelRes)
@@ -150,22 +149,22 @@ const Video = () => {
         }
         fetchData();
 
-    }, [path, dispatch, FETCH])
+    }, [path, dispatch])
 
     const handleLike = async () => {
-        await axios.put(`${FETCH}users/like/${currentVideo._id}`)
+        await axios.put(`users/like/${currentVideo._id}`)
         dispatch(like(currentUser._id))
     }
 
     const handleDislike = async () => {
-        await axios.put(`${FETCH}users/dislike/${currentVideo._id}`)
+        await axios.put(`users/dislike/${currentVideo._id}`)
         dispatch(dislike(currentUser._id))
     }
 
     const handleSub = async () => {
         currentUser.subscribedUsers.includes(channel._id)
-            ? await axios.put(`${FETCH}users/unsub/${channel._id}`)
-            : await axios.put(`${FETCH}users/sub/${channel._id}`)
+            ? await axios.put(`users/unsub/${channel._id}`)
+            : await axios.put(`users/sub/${channel._id}`)
         dispatch(subscription(channel._id))
     }
 
@@ -173,7 +172,7 @@ const Video = () => {
         <Container>
             <Content>
                 <VideoWrapper>
-                    <VideoFrame src={currentVideo.videoUrl} controls/>
+                    <VideoFrame src={currentVideo.videoUrl} controls />
                 </VideoWrapper>
                 <Title>{currentVideo.title}</Title>
                 <Details>

@@ -38,12 +38,11 @@ const Text = styled.span`
     font-size: 14px;`
 
 const Comment = ({ comment }) => {
-    const FETCH = process.env.REACT_APP_FETCH_PATH;
     const [channel, setChannel] = useState({})
 
     useEffect(() => {
         const fetchComment = async () => {
-            const res = await axios.get(`${FETCH}users/find/${comment.userId}`)
+            const res = await axios.get(`users/find/${comment.userId}`)
             setChannel(res.data)
         }
         fetchComment();

@@ -129,8 +129,18 @@ const Video = () => {
     const path = useLocation().pathname.split("/")[2];
 
     const [channel, setChannel] = useState({})
+    const [isFetching, setIsFetching] = useState(false)
+
+    const addView = async () => {
+        try {
+            await axios.put(`/videos/view/${path}`)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
+        setIsFetching(false)
         const fetchData = async () => {
             try {
                 const videoRes = await axios.get(`/videos/find/${path}`)
@@ -143,11 +153,14 @@ const Video = () => {
 
                 setChannel(channelRes.data);
                 dispatch(fetchSuccess(videoRes.data))
+                setIsFetching(true)
             } catch (error) {
 
             }
         }
         fetchData();
+        addView();
+
 
     }, [path, dispatch])
 
@@ -170,7 +183,7 @@ const Video = () => {
 
     return (
         <Container>
-            <Content>
+            {isFetching && <Content>
                 <VideoWrapper>
                     <VideoFrame src={currentVideo?.videoUrl} controls />
                 </VideoWrapper>
@@ -209,7 +222,8 @@ const Video = () => {
                 <Hr />
                 <Comments videoId={currentVideo._id} />
             </Content>
-            <Recommendation tags={currentVideo.tags} />
+            }
+            {isFetching && <Recommendation tags={currentVideo.tags} />}
         </Container>
     )
 }

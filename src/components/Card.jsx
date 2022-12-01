@@ -57,9 +57,11 @@ color: ${({ theme }) => theme.textSoft};
 const Card = ({ type, video }) => {
     const [channel, setChannel] = useState({})
 
+    console.log("video", video)
+
     useEffect(() => {
         const fetchChannel = async () => {
-            const res = await axios.get(`users/find/${video.userId}`);
+            const res = await axios.get(`/users/find/${video.userId}`);
             setChannel(res.data);
         }
         fetchChannel();
@@ -67,7 +69,7 @@ const Card = ({ type, video }) => {
     return (
         <Link to={`/video/${video._id}`} style={{ textDecoration: "none" }}>
             <Container type={type}>
-                <Image type={type} src={video.img} />
+                <Image type={type} src={video.imgUrl} />
                 <Details type={type}>
                     <ChannelImage type={type} src={channel.img} />
                     <Texts>

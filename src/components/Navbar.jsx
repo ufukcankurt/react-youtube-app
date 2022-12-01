@@ -91,7 +91,7 @@ const Navbar = () => {
             <SearchOutlinedIcon style={{"cursor":"pointer"}} onClick={() => navigate(`/search?q=${q}`)} />
           </Search>
           {currentUser ? <User>
-            <VideoCallOutlinedIcon onClick={() => setOpen(true)} />
+            <VideoCallOutlinedIcon style={{"cursor":"pointer"}} onClick={() => setOpen(true)} />
             <Avatar src={currentUser.img} />
             {currentUser.name}
           </User> : <Link to="/signin" style={{ textDecoration: "none" }}>

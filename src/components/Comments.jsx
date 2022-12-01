@@ -27,6 +27,7 @@ const Input = styled.input`
     background-color: transparent;
     outline: none;
     padding: 5px;
+    color: ${({ theme }) => theme.text};
 `
 
 const Comments = ({ videoId }) => {

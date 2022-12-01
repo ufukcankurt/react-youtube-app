@@ -41,6 +41,7 @@ const Input = styled.input`
     padding: 10px;
     background-color: transparent;
     width: 100%;
+    color: ${({ theme }) => theme.text};
 `
 
 const Button = styled.button`
@@ -89,6 +90,18 @@ const Signin = () => {
         }
     }
 
+    const signIn = async () => {
+        try {
+            const res = await axios.post("/auth/signup", {
+                name,
+                email,
+                password,
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const signinWithGoogle = async () => {
         dispatch(loginStart())
         signInWithPopup(auth, provider).then((result) => {
@@ -118,7 +131,7 @@ const Signin = () => {
                 <Input placeholder="username" onChange={(e) => setName(e.target.value)} />
                 <Input placeholder="email" onChange={(e) => setEmail(e.target.value)} />
                 <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-                <Button >Sign up</Button>
+                <Button onClick={signIn} >Sign up</Button>
             </Wrapper>
             <More>
                 English(USA)

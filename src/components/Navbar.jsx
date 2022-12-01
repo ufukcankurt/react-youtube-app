@@ -4,6 +4,7 @@ import styled from "styled-components"
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useSelector } from "react-redux";
@@ -73,6 +74,19 @@ const Avatar = styled.img`
   border-radius: 50%;
   background-color: #999;
 `
+const IconContainer = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: .3s all ease-in-out;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.soft};
+  }
+`
 
 const Navbar = () => {
 
@@ -82,18 +96,31 @@ const Navbar = () => {
   const [q, setQ] = useState("")
   const [open, setOpen] = useState(false)
 
+  /**
+   * When the user clicks the logout button, remove the local storage and reload the page.
+   */
+  const handleLogout = () => {
+    localStorage.removeItem("persist:root");
+    window.location.reload(false);
+  }
+
   return (
     <>
       <Container>
         <Wrapper>
           <Search>
             <Input placeholder="Search" onChange={(e) => setQ(e.target.value)} />
-            <SearchOutlinedIcon style={{"cursor":"pointer"}} onClick={() => navigate(`/search?q=${q}`)} />
+            <SearchOutlinedIcon style={{ "cursor": "pointer" }} onClick={() => navigate(`/search?q=${q}`)} />
           </Search>
           {currentUser ? <User>
-            <VideoCallOutlinedIcon style={{"cursor":"pointer"}} onClick={() => setOpen(true)} />
+            <IconContainer>
+              <VideoCallOutlinedIcon onClick={() => setOpen(true)} />
+            </IconContainer>
+
             <Avatar src={currentUser.img} />
             {currentUser.name}
+            <IconContainer><LogoutIcon onClick={handleLogout} /></IconContainer>
+
           </User> : <Link to="/signin" style={{ textDecoration: "none" }}>
             <Button> <AccountCircleOutlinedIcon /> SIGN IN</Button>
           </Link>}

@@ -87,6 +87,11 @@ yarn dev
 <p align="center" style="padding: 10px">
 <img alt="" src="./public/ss/2.png" width="90%">
 
+> ***You can upload video from here.***
+
+<p align="center" style="padding: 10px">
+<img alt="" src="./public/ss/6.png" width="90%">
+
 > ***This page is the video detail page. You can like and comment on the video. You can subscribe to the channel. You can also see similar videos on the right side.***
 
 <p align="center" style="padding: 10px">

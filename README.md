@@ -1,70 +1,101 @@
-# Getting Started with Create React App
+# Youtube App 📽
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- ***You can either register normally or log in using your google account.***
+- ***After logging in, you can add new videos, like and comment on videos.***
+- ***You can subscribe to channels, so you can follow the videos of your favorite channels.***
+- ***Application developed using `styled components`.***
+- ***You can choose the theme we want using dark & light mode.***
+- ***[`Firebase`](https://firebase.google.com/) was used to store images and videos in the cloud.***
+- ***[`Redux`](https://redux.js.org/) used for state management.***
 
-## Available Scripts
+## Built With 🛠
+<ul>
+<li>
+<a target="_blank" href="https://styled-components.com/">Styled Components</a>
+</li>     
+<li>
+<a target="_blank" href="https://reactjs.org/">React.js</a>
+</li>
+<li>
+<a target="_blank" href="https://www.mongodb.com/atlas/database">MongoDB</a>
+</li>     
+<li>
+<a target="_blank" href="https://expressjs.com/">Express.js</a>
+</li>   
+<li>
+<a target="_blank" href="https://nodejs.org/en/docs/">Node.js</a>
+</li>     
+<li>
+<a target="_blank" href="https://firebase.google.com/">Firebase</a>
+</li>  
+</ul>
 
-In the project directory, you can run:
 
-### `npm start`
+## Installation ⚡
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<ul>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<li>
+<p>Clone the repo</p>
+<pre>
+<code>git clone git@github.com:ufukcankurt/react-youtube-app.git</code>
+</pre>
+</li>
+<li>
+<p>İnstall all dependencies</p>
+<pre>
+<code> yarn ||  yarn install </code>
+</pre>
+</li>
+<li>
+Create .env file at the top of the application and add these parameters
+<pre>
+<code> REACT_APP_FIREBASE_APIKEY=</code>
+<code> REACT_APP_FIREBASE_AUTHDOMAIN=</code>
+<code> REACT_APP_FIREBASE_PROJECTID=</code>
+<code> REACT_APP_FIREBASE_STORAGEBUCKET=</code>
+<code> REACT_APP_FIREBASE_MESSAGINGSENDERID=</code>
+<code> REACT_APP_FIREBASE_APPID=</code>
+</pre>
+</li>
+<li>
+<p>Run the development server:</p>
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-### `npm run build`
+</li>
+</ul>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Screenshots 📸
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> ***App home page dark & light mode***
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<p align="center" style="padding: 10px">
+<img alt="" src="./public/ss/1.png" width="48%">
+<img alt="" src="./public/ss/1_1.png" width="48%">
 
-### `npm run eject`
+> ***If you have an account you can login otherwise you have to register***
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<p align="center" style="padding: 10px">
+<img alt="" src="./public/ss/2.png" width="90%">
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> ***This page is the video detail page. You can like and comment on the video. You can subscribe to the channel. You can also see similar videos on the right side.***
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<p align="center" style="padding: 10px">
+<img alt="" src="./public/ss/3.png" width="90%">
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+> ***The Explore page lets you discover popular videos based on the highest number of views in the app.***
 
-## Learn More
+<p align="center" style="padding: 10px">
+<img alt="" src="./public/ss/4.png" width="90%">
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> ***The Subscriptions page is where you can see the videos of your subscribed channels in the app.***
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<p align="center" style="padding: 10px">
+<img alt="" src="./public/ss/5.png" width="90%">
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

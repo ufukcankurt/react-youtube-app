@@ -30,6 +30,9 @@
 </li>  
 </ul>
 
+***You can check out the other repos the app has below.***
+- [***Server Client***](https://github.com/ufukcankurt/youtube-app-server)
+
 
 ## Installation ⚡
 

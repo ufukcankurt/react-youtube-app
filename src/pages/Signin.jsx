@@ -17,6 +17,7 @@ const Container = styled.div`
 `
 
 const Wrapper = styled.div`
+    position: relative;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -69,11 +70,24 @@ const Link = styled.span`
     margin-left: 30px;
 `
 
+const Alert = styled.span`
+    width: 100%;
+    position: absolute;
+    bottom: -47px;
+    padding: 10px 20px;
+    text-align: center;
+    color: white;
+    background-color: #089463;
+`
+
 const Signin = () => {
-    
+
     const [name, setName] = useState("");
+    const [nameSignIn, setNameSignIn] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordSignIn, setPasswordSignIn] = useState("");
+    const [message, setMessage] = useState(null);
     const dispatch = useDispatch();
 
     const handleLogin = async (e) => {
@@ -81,22 +95,31 @@ const Signin = () => {
         dispatch(loginStart())
         try {
             const res = await axios.post(`/auth/signin`, {
-                name,
-                password,
+                name: nameSignIn,
+                password: passwordSignIn,
             });
             dispatch(loginSuccess(res.data))
+            res.status === 200 && window.location.replace("/");
         } catch (err) {
             dispatch(loginFailure())
         }
     }
 
-    const signIn = async () => {
+    const signUp = async () => {
         try {
             const res = await axios.post("/auth/signup", {
                 name,
                 email,
                 password,
             })
+
+            if (res.status === 200) {
+                setMessage("Account created successfully")
+                setName("")
+                setEmail("")
+                setPassword("")
+            }
+
         } catch (error) {
             console.log(error)
         }
@@ -111,6 +134,7 @@ const Signin = () => {
                 img: result.user.photoURL,
             }).then((res) => {
                 dispatch(loginSuccess(res.data))
+                res.status === 200 && window.location.replace("/");
             })
         }).catch((err) => {
             dispatch(loginFailure())
@@ -120,18 +144,19 @@ const Signin = () => {
     return (
         <Container>
             <Wrapper>
+                {message !== null && <Alert>{message}</Alert>}
                 <Title>Sign In</Title>
                 <SubTitle>Sign in to your account</SubTitle>
-                <Input placeholder="username" onChange={(e) => setName(e.target.value)} />
-                <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+                <Input placeholder="username" value={nameSignIn} onChange={(e) => setNameSignIn(e.target.value)} />
+                <Input type="password" value={passwordSignIn} placeholder="password" onChange={(e) => setPasswordSignIn(e.target.value)} />
                 <Button onClick={handleLogin}>Sign in</Button>
                 <Title>Or</Title>
                 <Button onClick={signinWithGoogle}>Sigin with Google</Button>
                 <Title>Or</Title>
-                <Input placeholder="username" onChange={(e) => setName(e.target.value)} />
-                <Input placeholder="email" onChange={(e) => setEmail(e.target.value)} />
-                <Input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-                <Button onClick={signIn} >Sign up</Button>
+                <Input placeholder="username" value={name} onChange={(e) => setName(e.target.value)} />
+                <Input placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input type="password" value={password} placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+                <Button onClick={signUp} >Sign up</Button>
             </Wrapper>
             <More>
                 English(USA)
